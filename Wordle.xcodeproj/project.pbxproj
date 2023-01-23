@@ -12,6 +12,8 @@
 		3753FA5A297EC7BB009FD818 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3753FA59297EC7BB009FD818 /* ViewController.swift */; };
 		3753FA5F297EC7BD009FD818 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3753FA5E297EC7BD009FD818 /* Assets.xcassets */; };
 		3753FA62297EC7BD009FD818 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3753FA60297EC7BD009FD818 /* LaunchScreen.storyboard */; };
+		3753FA6A297ED1C3009FD818 /* GameBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3753FA69297ED1C3009FD818 /* GameBoardViewController.swift */; };
+		3753FA6C297ED1CF009FD818 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3753FA6B297ED1CF009FD818 /* KeyboardViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		3753FA5E297EC7BD009FD818 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3753FA61297EC7BD009FD818 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3753FA63297EC7BD009FD818 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3753FA69297ED1C3009FD818 /* GameBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoardViewController.swift; sourceTree = "<group>"; };
+		3753FA6B297ED1CF009FD818 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +58,24 @@
 		3753FA54297EC7BB009FD818 /* Wordle */ = {
 			isa = PBXGroup;
 			children = (
+				3753FA6F297F06F5009FD818 /* ViewControllers */,
 				3753FA55297EC7BB009FD818 /* AppDelegate.swift */,
 				3753FA57297EC7BB009FD818 /* SceneDelegate.swift */,
-				3753FA59297EC7BB009FD818 /* ViewController.swift */,
 				3753FA5E297EC7BD009FD818 /* Assets.xcassets */,
 				3753FA60297EC7BD009FD818 /* LaunchScreen.storyboard */,
 				3753FA63297EC7BD009FD818 /* Info.plist */,
 			);
 			path = Wordle;
+			sourceTree = "<group>";
+		};
+		3753FA6F297F06F5009FD818 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3753FA59297EC7BB009FD818 /* ViewController.swift */,
+				3753FA6B297ED1CF009FD818 /* KeyboardViewController.swift */,
+				3753FA69297ED1C3009FD818 /* GameBoardViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,6 +149,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3753FA5A297EC7BB009FD818 /* ViewController.swift in Sources */,
+				3753FA6C297ED1CF009FD818 /* KeyboardViewController.swift in Sources */,
+				3753FA6A297ED1C3009FD818 /* GameBoardViewController.swift in Sources */,
 				3753FA56297EC7BB009FD818 /* AppDelegate.swift in Sources */,
 				3753FA58297EC7BB009FD818 /* SceneDelegate.swift in Sources */,
 			);
