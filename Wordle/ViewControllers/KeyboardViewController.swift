@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol KeyboardViewControllerDelegate: AnyObject {
+    func keyboardVC(_vc: KeyboardViewController, didTapKey letter: Character)
+}
+
 class KeyboardViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
     let letters: [[Character]] = [
@@ -14,6 +18,8 @@ class KeyboardViewController: UIViewController, UICollectionViewDelegate, UIColl
         ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
         ["Z", "X", "C", "V", "B", "N", "M"]
     ]
+
+    weak var delegate: KeyboardViewControllerDelegate?
     
     let collectionView: UICollectionView = {
         let collectionViewLayout = UICollectionViewFlowLayout()
@@ -35,9 +41,9 @@ class KeyboardViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     func addConstraints() {
         NSLayoutConstraint.activate([
-            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
+            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 30),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
@@ -48,11 +54,8 @@ class KeyboardViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
         let letter = letters[indexPath.section][indexPath.row]
         cell.configure(with: letter)
+        cell.backgroundColor = .systemGray5
         return cell
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -85,5 +88,11 @@ class KeyboardViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         letters.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        let letter = letters[indexPath.section][indexPath.row]
+        delegate?.keyboardVC(_vc: self, didTapKey: letter)
     }
 }
