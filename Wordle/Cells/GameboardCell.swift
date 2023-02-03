@@ -1,18 +1,18 @@
 //
-//  Cell.swift
+//  GameboardCell.swift
 //  Wordle
 //
-//  Created by Kamil Skrzyński on 24/01/2023.
+//  Created by Kamil Skrzyński on 03/02/2023.
 //
 
 import UIKit
 
-class Cell: UICollectionViewCell {
-    static let identifier = "Cell"
+class GameboardCell: UICollectionViewCell {
+    static let identifier = "GameboardCell"
 
     let label: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 18)
+        label.font = .systemFont(ofSize: 26, weight: .semibold)
         label.textAlignment = .center
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -44,3 +44,4 @@ class Cell: UICollectionViewCell {
         fatalError()
     }
 }
+

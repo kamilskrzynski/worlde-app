@@ -19,6 +19,12 @@ class ViewController: UIViewController {
         count: 6
     )
 
+    var letters: [[Character]] = [
+        ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
+        ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
+        ["Z", "X", "C", "V", "B", "N", "M"]
+    ]
+
     let gameBoardVC = GameBoardViewController()
     let keyboardVC = KeyboardViewController()
 
@@ -33,6 +39,7 @@ class ViewController: UIViewController {
     func addViews() {
         addChild(keyboardVC)
         keyboardVC.delegate = self
+        keyboardVC.datasource = self
         keyboardVC.didMove(toParent: self)
         keyboardVC.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(keyboardVC.view)
@@ -82,12 +89,32 @@ extension ViewController: KeyboardViewControllerDelegate {
     }
 }
 
+extension ViewController: KeyBoardViewControllerDatasource {
+    var keyboardLetters: [[Character?]] {
+        return letters
+    }
+
+    func keyboardColor(at indexPath: IndexPath) -> UIColor? {
+//        let answerAsArray = Array(currentAnswer)
+//
+//        if answerAsArray[indexPath.row] == letters[indexPath.section][indexPath.row] {
+//            return .appGreen
+//        }
+//
+//        if answerAsArray.contains(letters[indexPath.section][indexPath.row]) {
+//            return .appYellow
+//        }
+
+        return .systemGray3
+    }
+}
+
 extension ViewController: GameboardViewControllerDatasource {
     var gameboard: [[Character?]] {
         return currentGameboard
     }
 
-    func color(at indexPath: IndexPath) -> UIColor? {
+    func gameboardColor(at indexPath: IndexPath) -> UIColor? {
 
         // Wait and show colors after whole line filled with letters
         let count = currentGameboard[indexPath.section].compactMap({ $0 }).count
@@ -95,16 +122,17 @@ extension ViewController: GameboardViewControllerDatasource {
             return nil
         }
 
-        guard let letter = currentGameboard[indexPath.section][indexPath.row] else {            return nil
+        guard let letter = currentGameboard[indexPath.section][indexPath.row] else {
+            return nil
         }
 
         let answerAsArray = Array(currentAnswer)
         if answerAsArray[indexPath.row] == letter {
-            return .systemGreen
+            return .appGreen
         }
 
         if answerAsArray.contains(letter) {
-            return .systemOrange
+            return .appYellow
         }
 
         return .systemGray3

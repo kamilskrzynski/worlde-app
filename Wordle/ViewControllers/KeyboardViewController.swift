@@ -11,14 +11,14 @@ protocol KeyboardViewControllerDelegate: AnyObject {
     func keyboardVC(_vc: KeyboardViewController, didTapKey letter: Character)
 }
 
+protocol KeyBoardViewControllerDatasource: AnyObject {
+    var keyboardLetters: [[Character?]] { get }
+    func keyboardColor(at indexPath: IndexPath) -> UIColor?
+}
+
 class KeyboardViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-
-    let letters: [[Character]] = [
-        ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
-        ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
-        ["Z", "X", "C", "V", "B", "N", "M"]
-    ]
-
+    
+    weak var datasource: KeyBoardViewControllerDatasource?
     weak var delegate: KeyboardViewControllerDelegate?
     
     let collectionView: UICollectionView = {
@@ -27,7 +27,7 @@ class KeyboardViewController: UIViewController, UICollectionViewDelegate, UIColl
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .clear
-        collectionView.register(Cell.self, forCellWithReuseIdentifier: Cell.identifier)
+        collectionView.register(KeyboardCell.self, forCellWithReuseIdentifier: KeyboardCell.identifier)
         return collectionView
     }()
 
@@ -49,17 +49,21 @@ class KeyboardViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cell.identifier, for: indexPath) as? Cell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: KeyboardCell.identifier, for: indexPath) as? KeyboardCell else {
             fatalError()
         }
-        let letter = letters[indexPath.section][indexPath.row]
+        let letters = datasource?.keyboardLetters ?? []
+        let letter = letters[indexPath.section][indexPath.row] ?? "A"
         cell.configure(with: letter)
-        cell.backgroundColor = .systemGray5
+        cell.layer.cornerRadius = 5
+        cell.backgroundColor = datasource?.keyboardColor(at: indexPath)
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        letters[section].count
+
+        let letters = datasource?.keyboardLetters ?? []
+        return letters[section].count
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -76,7 +80,7 @@ class KeyboardViewController: UIViewController, UICollectionViewDelegate, UIColl
         let itemsInSection: CGFloat = CGFloat(collectionView.numberOfItems(inSection: section))
         let margin: CGFloat = 20
         let size: CGFloat = (collectionView.frame.size.width-margin)/10
-        let inset: CGFloat = (collectionView.frame.size.width - (size * itemsInSection) - (2 * itemsInSection))/2
+        let inset: CGFloat = (collectionView.frame.size.width - (size * itemsInSection) - (itemsInSection))/2
 
         return UIEdgeInsets(
             top: 2,
@@ -86,13 +90,15 @@ class KeyboardViewController: UIViewController, UICollectionViewDelegate, UIColl
         )
     }
 
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        letters.count
+    func numberOfSections(in collectionView: UICollectionView) -> Int {let letters = datasource?.keyboardLetters ?? []
+        return letters.count
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        let letter = letters[indexPath.section][indexPath.row]
+
+        let letters = datasource?.keyboardLetters ?? []
+        let letter = letters[indexPath.section][indexPath.row] ?? "A"
         delegate?.keyboardVC(_vc: self, didTapKey: letter)
     }
 }

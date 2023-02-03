@@ -9,10 +9,20 @@ import UIKit
 
 protocol GameboardViewControllerDatasource: AnyObject {
     var gameboard: [[Character?]] { get }
-    func color(at indexPath: IndexPath) -> UIColor?
+    func gameboardColor(at indexPath: IndexPath) -> UIColor?
 }
 
 class GameBoardViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+
+    let label: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 34, weight: .bold)
+        label.textAlignment = .center
+        label.textColor = .white
+        label.text = "W O R D L E"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
 
     let collectionView: UICollectionView = {
         let collectionViewLayout = UICollectionViewFlowLayout()
@@ -20,7 +30,7 @@ class GameBoardViewController: UIViewController, UICollectionViewDelegate, UICol
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .clear
-        collectionView.register(Cell.self, forCellWithReuseIdentifier: Cell.identifier)
+        collectionView.register(GameboardCell.self, forCellWithReuseIdentifier: GameboardCell.identifier)
         return collectionView
     }()
 
@@ -28,6 +38,7 @@ class GameBoardViewController: UIViewController, UICollectionViewDelegate, UICol
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(label)
         view.addSubview(collectionView)
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -36,9 +47,13 @@ class GameBoardViewController: UIViewController, UICollectionViewDelegate, UICol
 
     func addConstraints() {
         NSLayoutConstraint.activate([
+            label.leftAnchor.constraint(equalTo: view.leftAnchor),
+            label.rightAnchor.constraint(equalTo: view.rightAnchor),
+            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+
             collectionView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             collectionView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            collectionView.topAnchor.constraint(equalTo: label.topAnchor, constant: 70),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
@@ -48,11 +63,11 @@ class GameBoardViewController: UIViewController, UICollectionViewDelegate, UICol
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cell.identifier, for: indexPath) as? Cell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GameboardCell.identifier, for: indexPath) as? GameboardCell else {
             fatalError()
         }
 
-        cell.backgroundColor = datasource?.color(at: indexPath)
+        cell.backgroundColor = datasource?.gameboardColor(at: indexPath)
         cell.layer.borderWidth = 1
         cell.layer.borderColor = UIColor.systemGray2.cgColor
 
