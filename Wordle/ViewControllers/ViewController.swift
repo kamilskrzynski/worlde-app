@@ -9,7 +9,12 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    let currentAnswer = "LATER"
+    override func viewWillAppear(_ animated: Bool) {
+        let answers = getAnswers()!
+        currentAnswer = answers.names.randomElement()?.uppercased() ?? "CLOUD"
+    }
+
+    var currentAnswer: String = "CLOUD"
 
     var currentGameboard: [[Character?]] = Array(
         repeating: Array(
@@ -64,6 +69,23 @@ class ViewController: UIViewController {
             keyboardVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
            // keyboardVC.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4)
         ])
+    }
+}
+
+extension ViewController {
+
+    func getAnswers() -> Answers? {
+        if let url = Bundle.main.url(forResource: "Answers", withExtension: "json") {
+            do {
+                let data = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                let jsonData = try decoder.decode(Answers.self, from: data)
+                return jsonData
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
     }
 }
 

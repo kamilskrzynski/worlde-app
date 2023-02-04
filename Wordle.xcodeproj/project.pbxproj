@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3743BF42298D1FA10099BC1E /* GameboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3743BF41298D1FA10099BC1E /* GameboardCell.swift */; };
+		3743BF47298EA6F40099BC1E /* Answers.json in Resources */ = {isa = PBXBuildFile; fileRef = 3743BF46298EA6F40099BC1E /* Answers.json */; };
+		3743BF4A298EA7A90099BC1E /* Answers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3743BF49298EA7A90099BC1E /* Answers.swift */; };
 		3753FA56297EC7BB009FD818 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3753FA55297EC7BB009FD818 /* AppDelegate.swift */; };
 		3753FA58297EC7BB009FD818 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3753FA57297EC7BB009FD818 /* SceneDelegate.swift */; };
 		3753FA5A297EC7BB009FD818 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3753FA59297EC7BB009FD818 /* ViewController.swift */; };
@@ -21,6 +23,8 @@
 
 /* Begin PBXFileReference section */
 		3743BF41298D1FA10099BC1E /* GameboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameboardCell.swift; sourceTree = "<group>"; };
+		3743BF46298EA6F40099BC1E /* Answers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Answers.json; sourceTree = "<group>"; };
+		3743BF49298EA7A90099BC1E /* Answers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answers.swift; sourceTree = "<group>"; };
 		3753FA52297EC7BB009FD818 /* Wordle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wordle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3753FA55297EC7BB009FD818 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3753FA57297EC7BB009FD818 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +49,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3743BF45298EA6CA0099BC1E /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				3743BF46298EA6F40099BC1E /* Answers.json */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		3743BF48298EA79D0099BC1E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3743BF49298EA7A90099BC1E /* Answers.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		3753FA49297EC7BB009FD818 = {
 			isa = PBXGroup;
 			children = (
@@ -64,6 +84,8 @@
 		3753FA54297EC7BB009FD818 /* Wordle */ = {
 			isa = PBXGroup;
 			children = (
+				3743BF48298EA79D0099BC1E /* Models */,
+				3743BF45298EA6CA0099BC1E /* Data */,
 				3753FA74297FF981009FD818 /* Cells */,
 				3753FA6F297F06F5009FD818 /* ViewControllers */,
 				3753FA55297EC7BB009FD818 /* AppDelegate.swift */,
@@ -154,6 +176,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3753FA62297EC7BD009FD818 /* LaunchScreen.storyboard in Resources */,
+				3743BF47298EA6F40099BC1E /* Answers.json in Resources */,
 				3753FA5F297EC7BD009FD818 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -169,6 +192,7 @@
 				3753FA5A297EC7BB009FD818 /* ViewController.swift in Sources */,
 				3753FA6C297ED1CF009FD818 /* KeyboardViewController.swift in Sources */,
 				3753FA6A297ED1C3009FD818 /* GameBoardViewController.swift in Sources */,
+				3743BF4A298EA7A90099BC1E /* Answers.swift in Sources */,
 				3753FA56297EC7BB009FD818 /* AppDelegate.swift in Sources */,
 				3753FA73297FE7B7009FD818 /* UIColor+Extensions.swift in Sources */,
 				3753FA58297EC7BB009FD818 /* SceneDelegate.swift in Sources */,
