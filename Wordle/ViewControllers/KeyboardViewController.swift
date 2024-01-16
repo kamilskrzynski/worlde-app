@@ -48,12 +48,16 @@ class KeyboardViewController: UIViewController, UICollectionViewDelegate, UIColl
         ])
     }
 
+    func reloadData() {
+        collectionView.reloadData()
+    }
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: KeyboardCell.identifier, for: indexPath) as? KeyboardCell else {
             fatalError()
         }
         let letters = datasource?.keyboardLetters ?? []
-        let letter = letters[indexPath.section][indexPath.row] ?? "A"
+        let letter = letters[indexPath.section][indexPath.row] ?? "."
         cell.configure(with: letter)
         cell.layer.cornerRadius = 5
         cell.backgroundColor = datasource?.keyboardColor(at: indexPath)

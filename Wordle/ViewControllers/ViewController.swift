@@ -16,6 +16,10 @@ class ViewController: UIViewController {
 
     var currentAnswer: String = "CLOUD"
 
+    var correctLetters: [Character] = []
+    var guessedLetters: [Character] = []
+    var wrongLetters: [Character] = []
+
     var currentGameboard: [[Character?]] = Array(
         repeating: Array(
             repeating: nil,
@@ -99,7 +103,10 @@ extension ViewController: KeyboardViewControllerDelegate {
                 if currentGameboard[i][j] == nil {
                     currentGameboard[i][j] = letter
                     isDone = true
-                    gameBoardVC.reloadData()
+                    DispatchQueue.main.async {
+                        self.gameBoardVC.reloadData()
+                        self.keyboardVC.reloadData()
+                    }
                     break
                 }
             }
@@ -107,7 +114,10 @@ extension ViewController: KeyboardViewControllerDelegate {
                 break
             }
         }
-        gameBoardVC.reloadData()
+        DispatchQueue.main.async {
+            self.gameBoardVC.reloadData()
+            self.keyboardVC.reloadData()
+        }
     }
 }
 
@@ -117,15 +127,26 @@ extension ViewController: KeyBoardViewControllerDatasource {
     }
 
     func keyboardColor(at indexPath: IndexPath) -> UIColor? {
-//        let answerAsArray = Array(currentAnswer)
-//
-//        if answerAsArray[indexPath.row] == letters[indexPath.section][indexPath.row] {
-//            return .appGreen
-//        }
-//
-//        if answerAsArray.contains(letters[indexPath.section][indexPath.row]) {
-//            return .appYellow
-//        }
+        // TODO: Fix a bug when sometimes some letters are not checked to be marked as guessed/correct/wrong like A/C/N
+
+        guard let letter = keyboardLetters[indexPath.section][indexPath.row] else {
+            return .systemGray3
+        }
+
+        if guessedLetters.contains(letter) && !correctLetters.contains(letter) {
+            print("Checking letter: \(letter)")
+            return .appYellow
+        }
+
+        if correctLetters.contains(letter) {
+            print("Checking letter: \(letter)")
+            return .appGreen
+        }
+
+        if wrongLetters.contains(letter) {
+            print("Checking letter: \(letter)")
+            return .systemGray6
+        }
 
         return .systemGray3
     }
@@ -149,14 +170,35 @@ extension ViewController: GameboardViewControllerDatasource {
         }
 
         let answerAsArray = Array(currentAnswer)
+
+
         if answerAsArray[indexPath.row] == letter {
+            if !correctLetters.contains(letter) {
+                correctLetters.append(letter)
+            }
+            print("correctLetters: \(correctLetters)")
+            print("answer: \(currentAnswer)")
             return .appGreen
         }
 
-        if answerAsArray.contains(letter) {
+        if answerAsArray.contains(letter) && !correctLetters.contains(letter) {
+            if !guessedLetters.contains(letter) {
+                guessedLetters.append(letter)
+            }
+            print("guessedLetters: \(guessedLetters)")
+            print("answer: \(currentAnswer)")
             return .appYellow
         }
 
-        return .systemGray3
+        if answerAsArray[indexPath.row] != letter && !guessedLetters.contains(letter) && !correctLetters.contains(letter) {
+            if !wrongLetters.contains(letter) {
+                wrongLetters.append(letter)
+            }
+            print("wrongLetters: \(wrongLetters)")
+            print("answer: \(currentAnswer)")
+            return .systemGray6
+        }
+
+        return .systemGray6
     }
 }
