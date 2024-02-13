@@ -11,10 +11,11 @@ class ViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         let answers = getAnswers()!
-        currentAnswer = answers.names.randomElement()?.uppercased() ?? "CLOUD"
+        currentAnswer = "CLOUD"
+        //currentAnswer = answers.names.randomElement()?.uppercased() ?? "CLOUD"
     }
 
-    var currentAnswer: String = "CLOUD"
+    var currentAnswer: String = "HONEY"
 
     var correctLetters: [Character] = []
     var guessedLetters: [Character] = []
@@ -65,14 +66,29 @@ class ViewController: UIViewController {
             gameBoardVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             gameBoardVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             gameBoardVC.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-            gameBoardVC.view.bottomAnchor.constraint(equalTo: keyboardVC.view.topAnchor),
             gameBoardVC.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.7),
 
             keyboardVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             keyboardVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             keyboardVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-           // keyboardVC.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4)
+            keyboardVC.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)
         ])
+    }
+
+    func checkIfGuessed() {
+        let currentAnswerAsArray = Array(currentAnswer)
+        print("correctLetters: \(correctLetters)")
+        print("currentAnswerAsArray: \(currentAnswerAsArray)")
+        //if correctLetters == currentAnswerAsArray {
+            DispatchQueue.main.async {
+               // self.presentResultView(titleLabelText: "SUCCESS! 🥳", secondaryLabelText: "Congratulations! You've guessed the correct answer 🎉", retryButtonTitle: "Try Again!", image: "checkmark.circle.fill", imageColor: .appGreen!)
+                var secondaryLabelText = "Unfortunately, the correct answer was \n\(self.currentAnswer)\nBetter luck next time! 🤞"
+                var mutableText = NSMutableAttributedString(string: secondaryLabelText)
+                mutableText.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 18, weight: .bold), range: NSRange(location: 39, length: 5))
+                mutableText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.white, range: NSRange(location: 39, length: 5))
+                self.presentResultView(titleLabelText: "NO LUCK THIS TIME 😞", secondaryLabelText: mutableText, retryButtonTitle: "Try Again!", image: "xmark.circle.fill", imageColor: .appRed!)
+            }
+       // }
     }
 }
 
@@ -134,17 +150,14 @@ extension ViewController: KeyBoardViewControllerDatasource {
         }
 
         if guessedLetters.contains(letter) && !correctLetters.contains(letter) {
-            print("Checking letter: \(letter)")
             return .appYellow
         }
 
         if correctLetters.contains(letter) {
-            print("Checking letter: \(letter)")
             return .appGreen
         }
 
         if wrongLetters.contains(letter) {
-            print("Checking letter: \(letter)")
             return .systemGray6
         }
 
@@ -175,18 +188,16 @@ extension ViewController: GameboardViewControllerDatasource {
         if answerAsArray[indexPath.row] == letter {
             if !correctLetters.contains(letter) {
                 correctLetters.append(letter)
+                self.checkIfGuessed()
             }
-            print("correctLetters: \(correctLetters)")
-            print("answer: \(currentAnswer)")
             return .appGreen
         }
-
-        if answerAsArray.contains(letter) && !correctLetters.contains(letter) {
+        
+       // if answerAsArray.contains(letter) && !correctLetters.contains(letter) {
+        if answerAsArray.contains(letter) {
             if !guessedLetters.contains(letter) {
                 guessedLetters.append(letter)
             }
-            print("guessedLetters: \(guessedLetters)")
-            print("answer: \(currentAnswer)")
             return .appYellow
         }
 
@@ -194,10 +205,9 @@ extension ViewController: GameboardViewControllerDatasource {
             if !wrongLetters.contains(letter) {
                 wrongLetters.append(letter)
             }
-            print("wrongLetters: \(wrongLetters)")
-            print("answer: \(currentAnswer)")
             return .systemGray6
         }
+
 
         return .systemGray6
     }

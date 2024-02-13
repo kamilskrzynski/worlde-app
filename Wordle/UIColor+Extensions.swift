@@ -11,4 +11,5 @@ extension UIColor {
     static let appColor = UIColor(named: "appColor")
     static let appGreen = UIColor(named: "appGreen")
     static let appYellow = UIColor(named: "appYellow")
+    static let appRed = UIColor(named: "appRed")
 }
