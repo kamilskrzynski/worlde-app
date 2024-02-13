@@ -25,7 +25,8 @@ class KeyboardViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     let collectionView: UICollectionView = {
         let collectionViewLayout = UICollectionViewFlowLayout()
-        collectionViewLayout.minimumLineSpacing = 2
+        collectionViewLayout.minimumInteritemSpacing = 4
+        collectionViewLayout.minimumLineSpacing = 1
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .clear
@@ -49,10 +50,10 @@ class KeyboardViewController: UIViewController, UICollectionViewDelegate, UIColl
             collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 30),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-            enterButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
-            enterButton.rightAnchor.constraint(equalTo: collectionView.leftAnchor, constant: 20),
-            enterButton.widthAnchor.constraint(equalToConstant: 50),
-            enterButton.heightAnchor.constraint(equalToConstant: 40)
+//            enterButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
+//            enterButton.rightAnchor.constraint(equalTo: collectionView.leftAnchor, constant: 20),
+//            enterButton.widthAnchor.constraint(equalToConstant: 50),
+//            enterButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
 
@@ -80,21 +81,21 @@ class KeyboardViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let margin: CGFloat = 20
-        let size: CGFloat = (collectionView.frame.size.width)/10
-        let actualSize = size * 0.8
+        let interItemSpacing: CGFloat = 10*4
+        let size: CGFloat = (collectionView.frame.size.width-margin-interItemSpacing-40)/10
 
         return CGSize(
-            width: actualSize,
-            height: actualSize*1.5
+            width: size,
+            height: size*1.5
         )
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         let itemsInSection: CGFloat = CGFloat(collectionView.numberOfItems(inSection: section))
         let margin: CGFloat = 20
-        let size: CGFloat = (collectionView.frame.size.width)/10
-        let actualSize = size * 0.8
-        let inset: CGFloat = (collectionView.frame.size.width - (actualSize * itemsInSection))/2
+        let interItemSpacing: CGFloat = 10*4
+        let size: CGFloat = (collectionView.frame.size.width-margin-interItemSpacing-40)/10
+        let inset: CGFloat = (collectionView.frame.size.width - (size * itemsInSection) - (itemsInSection * 4))/2
 
         return UIEdgeInsets(
             top: 4,

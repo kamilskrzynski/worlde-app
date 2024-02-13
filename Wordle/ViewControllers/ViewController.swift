@@ -81,12 +81,8 @@ class ViewController: UIViewController {
         print("currentAnswerAsArray: \(currentAnswerAsArray)")
         //if correctLetters == currentAnswerAsArray {
             DispatchQueue.main.async {
-               // self.presentResultView(titleLabelText: "SUCCESS! 🥳", secondaryLabelText: "Congratulations! You've guessed the correct answer 🎉", retryButtonTitle: "Try Again!", image: "checkmark.circle.fill", imageColor: .appGreen!)
-                var secondaryLabelText = "Unfortunately, the correct answer was \n\(self.currentAnswer)\nBetter luck next time! 🤞"
-                var mutableText = NSMutableAttributedString(string: secondaryLabelText)
-                mutableText.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 18, weight: .bold), range: NSRange(location: 39, length: 5))
-                mutableText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.white, range: NSRange(location: 39, length: 5))
-                self.presentResultView(titleLabelText: "NO LUCK THIS TIME 😞", secondaryLabelText: mutableText, retryButtonTitle: "Try Again!", image: "xmark.circle.fill", imageColor: .appRed!)
+                self.presentSuccessResultView(currentAnswer: self.currentAnswer)
+                //self.presentFailResultView(currentAnswer: self.currentAnswer)
             }
        // }
     }
