@@ -7,12 +7,17 @@
 
 import UIKit
 
+protocol ViewControllerDelegate {
+    func resetCurrentAnswer()
+}
+
 class ViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         let answers = getAnswers()!
-        currentAnswer = "CLOUD"
-        //currentAnswer = answers.names.randomElement()?.uppercased() ?? "CLOUD"
+        //currentAnswer = "CLOUD"
+        currentAnswer = answers.names.randomElement()?.uppercased() ?? "CLOUD"
+        print(currentAnswer)
     }
 
     var currentAnswer: String = "HONEY"
@@ -77,14 +82,20 @@ class ViewController: UIViewController {
 
     func checkIfGuessed() {
         let currentAnswerAsArray = Array(currentAnswer)
-        print("correctLetters: \(correctLetters)")
-        print("currentAnswerAsArray: \(currentAnswerAsArray)")
-        //if correctLetters == currentAnswerAsArray {
-            DispatchQueue.main.async {
-                self.presentSuccessResultView(currentAnswer: self.currentAnswer)
-                //self.presentFailResultView(currentAnswer: self.currentAnswer)
+        for i in 0..<currentGameboard.count {
+            for j in 0..<currentGameboard[i].count {
+                guard currentGameboard[i].count == 5, currentGameboard[i][j] != nil else { return }
+                let wordToCheck = currentGameboard[i].compactMap { $0 }
+                print("self.currentGameboard.compactMap { $0 }.count: \(self.currentGameboard.compactMap { $0 }.count)")
+                DispatchQueue.main.async {
+                    if wordToCheck == currentAnswerAsArray {
+                        self.presentSuccessResultView(currentAnswer: self.currentAnswer, delegate: self)
+                    } else if self.currentGameboard.compactMap { $0 }.count == 30 && wordToCheck != currentAnswerAsArray {
+                        self.presentFailResultView(currentAnswer: self.currentAnswer, delegate: self)
+                    }
+                }
             }
-       // }
+        }
     }
 }
 
@@ -188,8 +199,8 @@ extension ViewController: GameboardViewControllerDatasource {
             }
             return .appGreen
         }
-        
-       // if answerAsArray.contains(letter) && !correctLetters.contains(letter) {
+
+        // if answerAsArray.contains(letter) && !correctLetters.contains(letter) {
         if answerAsArray.contains(letter) {
             if !guessedLetters.contains(letter) {
                 guessedLetters.append(letter)
@@ -206,5 +217,26 @@ extension ViewController: GameboardViewControllerDatasource {
 
 
         return .systemGray6
+    }
+}
+
+extension ViewController: ResultViewControllerDelegate {
+    func resetCurrentAnswer() {
+        correctLetters = []
+        guessedLetters = []
+        wrongLetters = []
+        currentGameboard = Array(
+            repeating: Array(
+                repeating: nil,
+                count: 5
+            ),
+            count: 6
+        )
+        self.gameBoardVC.reloadData()
+        self.keyboardVC.reloadData()
+        let answers = getAnswers()!
+        //currentAnswer = "CLOUD"
+        currentAnswer = answers.names.randomElement()?.uppercased() ?? "CLOUD"
+        print(currentAnswer)
     }
 }

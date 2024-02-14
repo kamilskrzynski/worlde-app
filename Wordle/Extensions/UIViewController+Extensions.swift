@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIViewController {
-    func presentSuccessResultView(currentAnswer: String) {
+    func presentSuccessResultView(currentAnswer: String, delegate: ResultViewControllerDelegate) {
         let secondaryLabelText = "Congratulations! You've guessed the correct answer which was \n\(currentAnswer)\n Let's play more! 🎉"
         let mutableSecondaryLabelText = NSMutableAttributedString(string: secondaryLabelText)
         mutableSecondaryLabelText.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 18, weight: .bold), range: NSRange(location: 62, length: 5))
@@ -17,13 +17,14 @@ extension UIViewController {
                                             secondaryLabelText: mutableSecondaryLabelText,
                                             retryButtonTitle: "Try Again!",
                                             image: "checkmark.circle.fill",
-                                            imageColor: .appGreen!)
+                                            imageColor: .appGreen!,
+                                            delegate: delegate)
         resultVC.modalPresentationStyle = .overFullScreen
         resultVC.modalTransitionStyle = .crossDissolve
         self.present(resultVC, animated: true)
     }
 
-    func presentFailResultView(currentAnswer: String) {
+    func presentFailResultView(currentAnswer: String, delegate: ResultViewControllerDelegate) {
         let secondaryLabelText = "Unfortunately, the correct answer was \n\(currentAnswer)\nBetter luck next time! 🤞"
         let mutableSecondaryLabelText = NSMutableAttributedString(string: secondaryLabelText)
         mutableSecondaryLabelText.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 18, weight: .bold), range: NSRange(location: 39, length: 5))
@@ -32,7 +33,8 @@ extension UIViewController {
                                             secondaryLabelText: mutableSecondaryLabelText,
                                             retryButtonTitle: "Try Again!",
                                             image: "xmark.circle.fill",
-                                            imageColor: .appRed!)
+                                            imageColor: .appRed!,
+                                            delegate: delegate)
         resultVC.modalPresentationStyle = .overFullScreen
         resultVC.modalTransitionStyle = .crossDissolve
         self.present(resultVC, animated: true)

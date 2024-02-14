@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ResultViewControllerDelegate: AnyObject {
+    func resetCurrentAnswer()
+}
+
 class ResultViewController: UIViewController {
 
     var image: String?
@@ -15,17 +19,21 @@ class ResultViewController: UIViewController {
     var retryButtonTitle: String?
     var imageColor: UIColor!
 
+    weak var delegate: ResultViewControllerDelegate?
+
     init(titleLabelText: String,
          secondaryLabelText: NSAttributedString,
          retryButtonTitle: String,
          image: String,
-         imageColor: UIColor) {
+         imageColor: UIColor,
+         delegate: ResultViewControllerDelegate) {
         super.init(nibName: nil, bundle: nil)
         self.titleLabelText = titleLabelText
         self.secondaryLabelText = secondaryLabelText
         self.retryButtonTitle = retryButtonTitle
         self.image = image
         self.imageColor = imageColor
+        self.delegate = delegate
     }
     
     required init?(coder: NSCoder) {
@@ -77,6 +85,7 @@ class ResultViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.titleLabel?.font = .systemFont(ofSize: 18, weight: .medium)
         button.backgroundColor = .secondarySystemBackground
+        button.addTarget(self, action: #selector(resetCurrentAnswer), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
 
         return button
@@ -127,5 +136,10 @@ class ResultViewController: UIViewController {
             retryButton.heightAnchor.constraint(equalToConstant: 50),
             retryButton.widthAnchor.constraint(equalToConstant: 110)
         ])
+    }
+
+    @objc func resetCurrentAnswer() {
+        delegate?.resetCurrentAnswer()
+        dismiss(animated: true)
     }
 }
