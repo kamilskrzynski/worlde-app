@@ -12,14 +12,13 @@
 		3743BF4A298EA7A90099BC1E /* Answers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3743BF49298EA7A90099BC1E /* Answers.swift */; };
 		3753FA56297EC7BB009FD818 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3753FA55297EC7BB009FD818 /* AppDelegate.swift */; };
 		3753FA58297EC7BB009FD818 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3753FA57297EC7BB009FD818 /* SceneDelegate.swift */; };
-		3753FA5A297EC7BB009FD818 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3753FA59297EC7BB009FD818 /* ViewController.swift */; };
+		3753FA5A297EC7BB009FD818 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3753FA59297EC7BB009FD818 /* MainViewController.swift */; };
 		3753FA5F297EC7BD009FD818 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3753FA5E297EC7BD009FD818 /* Assets.xcassets */; };
 		3753FA62297EC7BD009FD818 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3753FA60297EC7BD009FD818 /* LaunchScreen.storyboard */; };
 		3753FA6A297ED1C3009FD818 /* GameBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3753FA69297ED1C3009FD818 /* GameBoardViewController.swift */; };
 		3753FA6C297ED1CF009FD818 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3753FA6B297ED1CF009FD818 /* KeyboardViewController.swift */; };
 		3753FA71297FE43E009FD818 /* KeyboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3753FA70297FE43E009FD818 /* KeyboardCell.swift */; };
 		3753FA73297FE7B7009FD818 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3753FA72297FE7B7009FD818 /* UIColor+Extensions.swift */; };
-		37B10A672B56A46D00A63FCF /* EnterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B10A662B56A46D00A63FCF /* EnterButton.swift */; };
 		37B10B242B7A48DA00A63FCF /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B10B232B7A48DA00A63FCF /* ResultViewController.swift */; };
 		37B10B272B7A567500A63FCF /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B10B262B7A567500A63FCF /* UIView+Extensions.swift */; };
 		37B10B292B7B799A00A63FCF /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B10B282B7B799A00A63FCF /* UIViewController+Extensions.swift */; };
@@ -32,7 +31,7 @@
 		3753FA52297EC7BB009FD818 /* Wordle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wordle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3753FA55297EC7BB009FD818 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3753FA57297EC7BB009FD818 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3753FA59297EC7BB009FD818 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3753FA59297EC7BB009FD818 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3753FA5E297EC7BD009FD818 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3753FA61297EC7BD009FD818 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3753FA63297EC7BD009FD818 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -40,7 +39,6 @@
 		3753FA6B297ED1CF009FD818 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		3753FA70297FE43E009FD818 /* KeyboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardCell.swift; sourceTree = "<group>"; };
 		3753FA72297FE7B7009FD818 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
-		37B10A662B56A46D00A63FCF /* EnterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterButton.swift; sourceTree = "<group>"; };
 		37B10B232B7A48DA00A63FCF /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		37B10B262B7A567500A63FCF /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		37B10B282B7B799A00A63FCF /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
@@ -93,7 +91,6 @@
 			isa = PBXGroup;
 			children = (
 				37B10B252B7A566500A63FCF /* Extensions */,
-				37B10A652B56A45800A63FCF /* Buttons */,
 				3743BF48298EA79D0099BC1E /* Models */,
 				3743BF45298EA6CA0099BC1E /* Data */,
 				3753FA74297FF981009FD818 /* Cells */,
@@ -111,7 +108,7 @@
 		3753FA6F297F06F5009FD818 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				3753FA59297EC7BB009FD818 /* ViewController.swift */,
+				3753FA59297EC7BB009FD818 /* MainViewController.swift */,
 				3753FA6B297ED1CF009FD818 /* KeyboardViewController.swift */,
 				3753FA69297ED1C3009FD818 /* GameBoardViewController.swift */,
 				37B10B232B7A48DA00A63FCF /* ResultViewController.swift */,
@@ -126,14 +123,6 @@
 				3743BF41298D1FA10099BC1E /* GameboardCell.swift */,
 			);
 			path = Cells;
-			sourceTree = "<group>";
-		};
-		37B10A652B56A45800A63FCF /* Buttons */ = {
-			isa = PBXGroup;
-			children = (
-				37B10A662B56A46D00A63FCF /* EnterButton.swift */,
-			);
-			path = Buttons;
 			sourceTree = "<group>";
 		};
 		37B10B252B7A566500A63FCF /* Extensions */ = {
@@ -216,10 +205,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37B10A672B56A46D00A63FCF /* EnterButton.swift in Sources */,
 				3743BF42298D1FA10099BC1E /* GameboardCell.swift in Sources */,
 				37B10B292B7B799A00A63FCF /* UIViewController+Extensions.swift in Sources */,
-				3753FA5A297EC7BB009FD818 /* ViewController.swift in Sources */,
+				3753FA5A297EC7BB009FD818 /* MainViewController.swift in Sources */,
 				3753FA6C297ED1CF009FD818 /* KeyboardViewController.swift in Sources */,
 				37B10B272B7A567500A63FCF /* UIView+Extensions.swift in Sources */,
 				3753FA6A297ED1C3009FD818 /* GameBoardViewController.swift in Sources */,

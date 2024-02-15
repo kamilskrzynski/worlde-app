@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ResultViewControllerDelegate: AnyObject {
-    func resetCurrentAnswer()
+    func resetGameboard()
 }
 
 class ResultViewController: UIViewController {
@@ -85,7 +85,7 @@ class ResultViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.titleLabel?.font = .systemFont(ofSize: 18, weight: .medium)
         button.backgroundColor = .secondarySystemBackground
-        button.addTarget(self, action: #selector(resetCurrentAnswer), for: .touchUpInside)
+        button.addTarget(self, action: #selector(resetGameboard), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
 
         return button
@@ -138,8 +138,8 @@ class ResultViewController: UIViewController {
         ])
     }
 
-    @objc func resetCurrentAnswer() {
-        delegate?.resetCurrentAnswer()
+    @objc func resetGameboard() {
+        delegate?.resetGameboard()
         dismiss(animated: true)
     }
 }
