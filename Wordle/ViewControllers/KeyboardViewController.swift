@@ -21,8 +21,6 @@ class KeyboardViewController: UIViewController, UICollectionViewDelegate, UIColl
     weak var datasource: KeyBoardViewControllerDatasource?
     weak var delegate: KeyboardViewControllerDelegate?
 
-    let enterButton = EnterButton()
-
     let collectionView: UICollectionView = {
         let collectionViewLayout = UICollectionViewFlowLayout()
         collectionViewLayout.minimumInteritemSpacing = 4
@@ -37,7 +35,6 @@ class KeyboardViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(collectionView)
-        view.addSubview(enterButton)
         collectionView.delegate = self
         collectionView.dataSource = self
         addConstraints()
@@ -49,11 +46,6 @@ class KeyboardViewController: UIViewController, UICollectionViewDelegate, UIColl
             collectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
             collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 30),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-
-//            enterButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
-//            enterButton.rightAnchor.constraint(equalTo: collectionView.leftAnchor, constant: 20),
-//            enterButton.widthAnchor.constraint(equalToConstant: 50),
-//            enterButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
 
@@ -109,9 +101,8 @@ class KeyboardViewController: UIViewController, UICollectionViewDelegate, UIColl
         return letters.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let letters = datasource?.keyboardLetters ?? []
         let letter = letters[indexPath.section][indexPath.row] ?? "A"
         delegate?.keyboardVC(_vc: self, didTapKey: letter)
